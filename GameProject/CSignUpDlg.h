@@ -23,4 +23,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
+//	CButton m_SGender;
+	afx_msg void OnBnClickedRadio1();
+	int m_SGender;
+	afx_msg void OnBnClickedRadio2();
 };

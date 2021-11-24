@@ -25,6 +25,8 @@ public:
 // 작업입니다.
 public:
 
+	CSignUpDlg* m_SignupDlg;
+
 // 재정의입니다.
 public:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
@@ -51,6 +53,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedSignup();
+	afx_msg void OnBnClickedbtnLogin();
 };
 
 #ifndef _DEBUG  // GameProjectView.cpp의 디버그 버전

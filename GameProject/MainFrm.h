@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include "CSignUpDlg.h"
 
 class CMainFrame : public CFrameWnd
 {

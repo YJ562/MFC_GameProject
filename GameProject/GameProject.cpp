@@ -11,7 +11,7 @@
 
 #include "GameProjectDoc.h"
 #include "GameProjectView.h"
-#include "Signup.h" //모달리스
+#include "CSignupDlg.h" //모달리스
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -147,7 +147,7 @@ class CAboutDlg : public CDialogEx
 public:
 	CAboutDlg() noexcept;
 
-	Signup* m_Signup;
+	//Signup* m_Signup;
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_ABOUTBOX };

@@ -13,6 +13,7 @@
 #define IDC_btn_Login                   1000
 #define IDC_ID                          1001
 #define IDC_Password                    1002
+#define IDC_PW                          1002
 #define IDC_SignUp                      1003
 #define IDC_FindInfo                    1004
 #define IDC_SID                         1004

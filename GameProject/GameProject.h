@@ -8,7 +8,7 @@
 #endif
 
 #include "resource.h"       // 주 기호입니다.
-#include "Signup.h"
+#include "CSignupDlg.h"
 
 
 // CGameProjectApp:

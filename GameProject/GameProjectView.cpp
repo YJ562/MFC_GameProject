@@ -12,6 +12,7 @@
 
 #include "GameProjectDoc.h"
 #include "GameProjectView.h"
+#include "CSignupDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -28,6 +29,7 @@ BEGIN_MESSAGE_MAP(CGameProjectView, CFormView)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CFormView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CFormView::OnFilePrintPreview)
 	ON_BN_CLICKED(IDC_SignUp, &CGameProjectView::OnBnClickedSignup)
+	ON_BN_CLICKED(IDC_btn_Login, &CGameProjectView::OnBnClickedbtnLogin)
 END_MESSAGE_MAP()
 
 // CGameProjectView 생성/소멸
@@ -61,6 +63,9 @@ void CGameProjectView::OnInitialUpdate()
 	CFormView::OnInitialUpdate();
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
+	GetDlgItem(IDC_FindInfo)->EnableWindow(FALSE);
+
+	
 
 }
 
@@ -116,5 +121,37 @@ CGameProjectDoc* CGameProjectView::GetDocument() const // 디버그되지 않은
 void CGameProjectView::OnBnClickedSignup()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CSignUpDlg SignUp_Screen; 
+	int iRes = SignUp_Screen.DoModal(); // 자식 대화상자 생성, 부모 대화상자 정지 
+	if (IDOK == iRes) {
+		 // 확인 버튼 눌렀을 때 
+	} 
+	else if ( IDCANCEL == iRes ) { 
+		// 취소 버튼 눌렀을 때 
+	}
 
+	//m_SignupDlg = new CSignUpDlg; 
+	//m_SignupDlg->Create(IDD_SignUP);
+	//m_SignupDlg->ShowWindow(SW_SHOW);
+
+
+}
+
+
+void CGameProjectView::OnBnClickedbtnLogin()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	
+	//아이디, 비밀번호 입력
+	CString m_Login_ID = _T("");
+	CString m_Login_PW = _T("");
+	
+	GetDlgItemText(IDC_ID, m_Login_ID);
+	GetDlgItemText(IDC_Password, m_Login_PW);
+
+	//입력 테스트
+	/*
+	CString test = m_Login_ID +" " + m_Login_PW;
+	MessageBox(test);
+	*/
 }
