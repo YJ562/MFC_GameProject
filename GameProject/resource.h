@@ -13,7 +13,6 @@
 #define IDC_btn_Login                   1000
 #define IDC_ID                          1001
 #define IDC_Password                    1002
-#define IDC_PW                          1002
 #define IDC_SignUp                      1003
 #define IDC_FindInfo                    1004
 #define IDC_SID                         1004
@@ -35,6 +34,13 @@
 #define IDC_RADIO2                      1020
 #define IDC_EDIT1                       1020
 #define IDC_STATIC_ID7                  1021
+#define IDC_STATIC_ID8                  1022
+#define IDC_PHONE1                      1023
+#define IDC_PHONE2                      1024
+#define IDC_PHONE3                      1025
+#define IDC_PWError                     1026
+#define IDC_PWError2                    1027
+#define IDC_IDError                     1027
 
 // Next default values for new objects
 // 
@@ -42,7 +48,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        317
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1021
+#define _APS_NEXT_CONTROL_VALUE         1027
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

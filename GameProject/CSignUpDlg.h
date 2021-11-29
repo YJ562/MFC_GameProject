@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "afxdialogex.h"
-
+#include <afxdb.h>
 
 // CSignUpDlg 대화 상자
 
@@ -23,8 +23,14 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
-//	CButton m_SGender;
-	afx_msg void OnBnClickedRadio1();
 	int m_SGender;
+	afx_msg void OnBnClickedRadio1();
 	afx_msg void OnBnClickedRadio2();
+
+	CDatabase m_db; //데이터 베이스 연동
+	CRecordset* m_prs;
+
+
+	void InsertData(CString Signup_ID, CString Signup_PW, CString Signup_NICKNAME, CString Signup_NAME, CString Signup_GENDER, CString BRITHDAY, CString Signup_PHONE);
+	int CheckDuplicatedID(CString Signup_ID);
 };

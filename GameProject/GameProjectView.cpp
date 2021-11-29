@@ -38,6 +38,8 @@ CGameProjectView::CGameProjectView() noexcept
 	: CFormView(IDD_GAMEPROJECT_FORM)
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
+	BOOL bopen = m_db.OpenEx(_T("DSN=GameProjectDB; SERVER=127.0.0.1; PORT=3306; UID=root; PWD=0804; DATABASE=gameproject;"), CDatabase::noOdbcDialog);
+	if (bopen) m_prs = new CRecordset(&m_db);
 
 }
 
@@ -123,12 +125,14 @@ void CGameProjectView::OnBnClickedSignup()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CSignUpDlg SignUp_Screen; 
 	int iRes = SignUp_Screen.DoModal(); // 자식 대화상자 생성, 부모 대화상자 정지 
+	
+	/*
 	if (IDOK == iRes) {
 		 // 확인 버튼 눌렀을 때 
 	} 
 	else if ( IDCANCEL == iRes ) { 
 		// 취소 버튼 눌렀을 때 
-	}
+	}*/
 
 	//m_SignupDlg = new CSignUpDlg; 
 	//m_SignupDlg->Create(IDD_SignUP);
@@ -146,6 +150,7 @@ void CGameProjectView::OnBnClickedbtnLogin()
 	CString m_Login_ID = _T("");
 	CString m_Login_PW = _T("");
 	
+	
 	GetDlgItemText(IDC_ID, m_Login_ID);
 	GetDlgItemText(IDC_Password, m_Login_PW);
 
@@ -154,4 +159,41 @@ void CGameProjectView::OnBnClickedbtnLogin()
 	CString test = m_Login_ID +" " + m_Login_PW;
 	MessageBox(test);
 	*/
+
+	int success = ComparePW(m_Login_ID, m_Login_PW);
+	if (success == 1) MessageBox(_T("로그인을 성공하였습니다."));
+	else MessageBox(_T("로그인을 실패하였습니다."));
+	
+}
+
+int CGameProjectView::ComparePW(CString  Enter_ID, CString Enter_PW) {
+
+	CString query_str; //DB 쿼리문
+	CString m_ComparePW = _T(""); //DB에 있는 비밀번호와 비교
+
+	query_str.Format(L"select PW from member where ID = \'%s\';", Enter_ID);
+
+
+	BOOL bopen = m_prs->Open(CRecordset::snapshot, query_str);
+
+	{
+		int row = 1;
+		BOOL beof = m_prs->IsEOF();
+		DWORD dwsize = m_prs->GetRowsetSize();
+		if (!beof) {
+			for (m_prs->MoveFirst(); !m_prs->IsEOF(); m_prs->MoveNext()) {
+				
+				for (int col = 0; col < 1; col++) {
+					m_prs->SetAbsolutePosition(row);
+					m_prs->GetFieldValue(col, m_ComparePW);
+				} 
+				//row++;
+			} 
+		}  
+		//AfxMessageBox(m_ComparePW);  //알맞은 비밀번호
+		m_prs->Close();
+	}
+
+	if (Enter_PW == m_ComparePW) return 1;
+	else return 0;
 }

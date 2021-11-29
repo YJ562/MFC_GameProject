@@ -26,6 +26,9 @@ public:
 public:
 
 	CSignUpDlg* m_SignupDlg;
+	
+	CDatabase m_db; //데이터 베이스 연동
+	CRecordset* m_prs; 
 
 // 재정의입니다.
 public:
@@ -37,6 +40,9 @@ protected:
 	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
 	virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
 	virtual void OnPrint(CDC* pDC, CPrintInfo* pInfo);
+
+
+	int ComparePW(CString Enter_ID, CString Enter_PW);
 
 // 구현입니다.
 public:
