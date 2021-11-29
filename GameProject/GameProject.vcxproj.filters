@@ -39,10 +39,10 @@
     <ClInclude Include="pch.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="PlayScreen.h">
+    <ClInclude Include="CSignUpDlg.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="CSignUpDlg.h">
+    <ClInclude Include="CPlayFormView.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,10 +62,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="PlayScreen.cpp">
+    <ClCompile Include="CSignUpDlg.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CSignUpDlg.cpp">
+    <ClCompile Include="CPlayFormView.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

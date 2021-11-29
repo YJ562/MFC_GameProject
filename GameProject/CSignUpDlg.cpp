@@ -28,6 +28,7 @@ void CSignUpDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Radio(pDX, IDC_RADIO1, m_SGender);
+	//  DDX_Control(pDX, IDC_BIRTHDAY, pCtrl);
 
 
 	BOOL bopen = m_db.OpenEx(_T("DSN=GameProjectDB; SERVER=127.0.0.1; PORT=3306; UID=root; PWD=0804; DATABASE=gameproject;"), CDatabase::noOdbcDialog);
@@ -36,6 +37,8 @@ void CSignUpDlg::DoDataExchange(CDataExchange* pDX)
 
 	GetDlgItem(IDC_PWError)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_IDError)->ShowWindow(SW_HIDE);
+
+	DDX_Control(pDX, IDC_BIRTHDAY, m_datetime_date);
 }
 
 
@@ -60,8 +63,8 @@ void CSignUpDlg::OnBnClickedOk()
 	CString Signup_PW2 = _T(""); //아이디 확인
 	CString Signup_NICKNAME = _T("");
 	CString Signup_NAME = _T("");
-	CString Signup_GENDER = _T("남성");
-	CString Signup_BRITHDAY = _T("H");
+	CString Signup_GENDER = _T("");
+	CString Signup_BIRTHDAY = _T("");
 	CString Signup_PHONE = _T("");
 
 	CString Signup_PHONE_NUM1 = _T("");
@@ -80,8 +83,11 @@ void CSignUpDlg::OnBnClickedOk()
 	GetDlgItemText(IDC_PHONE2, Signup_PHONE_NUM2);
 	GetDlgItemText(IDC_PHONE3, Signup_PHONE_NUM3);
 	
+	
+	
 
 	UpdateData(true);
+
 	switch (m_SGender) {
 	case 0:
 		Signup_GENDER.Format(L"남성");
@@ -90,6 +96,11 @@ void CSignUpDlg::OnBnClickedOk()
 		Signup_GENDER.Format(L"여성");
 	}
 	
+
+	CTime date;
+	m_datetime_date.GetTime(date);
+	Signup_BIRTHDAY = date.Format("%Y-%m-%d");
+	
 	Signup_PHONE = Signup_PHONE_NUM1 + Signup_PHONE_NUM2 + Signup_PHONE_NUM3;
 
 	//입력 확인 테스트
@@ -97,8 +108,9 @@ void CSignUpDlg::OnBnClickedOk()
 	MessageBox(test);
 
 	if(CheckDuplicatedID(Signup_ID)!=1){
+
 		if (Signup_PW.Compare(Signup_PW2) == 0) { //문자열 일치할 때, compare 함수가 0을 반환
-			InsertData(Signup_ID, Signup_PW, Signup_NICKNAME, Signup_NAME, Signup_GENDER, Signup_BRITHDAY, Signup_PHONE);
+			InsertData(Signup_ID, Signup_PW, Signup_NICKNAME, Signup_NAME, Signup_GENDER, Signup_BIRTHDAY, Signup_PHONE);
 			GetDlgItem(IDC_PWError)->ShowWindow(SW_HIDE);
 		}
 		else {

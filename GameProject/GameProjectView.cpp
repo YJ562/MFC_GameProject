@@ -13,6 +13,7 @@
 #include "GameProjectDoc.h"
 #include "GameProjectView.h"
 #include "CSignupDlg.h"
+#include  "CPlayFormView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -65,9 +66,21 @@ void CGameProjectView::OnInitialUpdate()
 	CFormView::OnInitialUpdate();
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
-	GetDlgItem(IDC_FindInfo)->EnableWindow(FALSE);
+	GetDlgItem(IDC_FindInfo)->EnableWindow(FALSE); // 아이디/비밀번호 찾기 비활성화
 
-	
+
+	// 화면 전환
+	CRect rc;
+	GetClientRect(&rc);
+	//rc.left += 100;
+
+	CCreateContext cc;
+
+	CView* pView = (CView*)RUNTIME_CLASS(CPlayFormView)->CreateObject();
+	ZeroMemory(&cc, sizeof(cc));
+	pView->Create(nullptr, nullptr, WS_CHILD, rc, this, IDD_Play, &cc);
+	pView->OnInitialUpdate();
+	m_PlayView = pView;
 
 }
 
@@ -124,21 +137,8 @@ void CGameProjectView::OnBnClickedSignup()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CSignUpDlg SignUp_Screen; 
-	int iRes = SignUp_Screen.DoModal(); // 자식 대화상자 생성, 부모 대화상자 정지 
+	int iRes = SignUp_Screen.DoModal(); // 회원 가입창 모달
 	
-	/*
-	if (IDOK == iRes) {
-		 // 확인 버튼 눌렀을 때 
-	} 
-	else if ( IDCANCEL == iRes ) { 
-		// 취소 버튼 눌렀을 때 
-	}*/
-
-	//m_SignupDlg = new CSignUpDlg; 
-	//m_SignupDlg->Create(IDD_SignUP);
-	//m_SignupDlg->ShowWindow(SW_SHOW);
-
-
 }
 
 
@@ -160,15 +160,28 @@ void CGameProjectView::OnBnClickedbtnLogin()
 	MessageBox(test);
 	*/
 
-	int success = ComparePW(m_Login_ID, m_Login_PW);
-	if (success == 1) MessageBox(_T("로그인을 성공하였습니다."));
-	else MessageBox(_T("로그인을 실패하였습니다."));
+	if (m_Login_ID.Compare(_T("")) != 0 || m_Login_PW.Compare(_T("")) != 0) {
+		int success = ComparePW(m_Login_ID, m_Login_PW);
+		if (success == 1) {
+			MessageBox(_T("로그인을 성공하였습니다."));
+			m_PlayView->ShowWindow(SW_SHOW);
+
+			GetDlgItem(IDC_SignUp)->ShowWindow(SW_HIDE);
+			GetDlgItem(IDC_btn_Login)->ShowWindow(SW_HIDE);
+			GetDlgItem(IDC_FindInfo)->ShowWindow(SW_HIDE);
+			GetDlgItem(IDC_ID)->ShowWindow(SW_HIDE);
+			GetDlgItem(IDC_Password)->ShowWindow(SW_HIDE);
+			
+		}
+		else MessageBox(_T("잘못된 아이디/비밀번호 입니다.\n다시 로그인을 시도해주세요."));
+	}
+	else MessageBox(_T("아이디/비밀번호를 입력해주세요."));
 	
 }
 
 int CGameProjectView::ComparePW(CString  Enter_ID, CString Enter_PW) {
 
-	CString query_str; //DB 쿼리문
+	CString query_str; //쿼리문
 	CString m_ComparePW = _T(""); //DB에 있는 비밀번호와 비교
 
 	query_str.Format(L"select PW from member where ID = \'%s\';", Enter_ID);
@@ -187,7 +200,6 @@ int CGameProjectView::ComparePW(CString  Enter_ID, CString Enter_PW) {
 					m_prs->SetAbsolutePosition(row);
 					m_prs->GetFieldValue(col, m_ComparePW);
 				} 
-				//row++;
 			} 
 		}  
 		//AfxMessageBox(m_ComparePW);  //알맞은 비밀번호
@@ -197,3 +209,4 @@ int CGameProjectView::ComparePW(CString  Enter_ID, CString Enter_PW) {
 	if (Enter_PW == m_ComparePW) return 1;
 	else return 0;
 }
+

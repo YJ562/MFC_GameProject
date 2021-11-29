@@ -8,14 +8,14 @@
 #define IDR_MAINFRAME                   128
 #define IDR_GameProjectTYPE             130
 #define IDD_SignUP                      311
-#define IDD_GameScreen                  313
 #define IDD_Status                      314
+#define IDD_Play                        315
 #define IDC_btn_Login                   1000
 #define IDC_ID                          1001
 #define IDC_Password                    1002
 #define IDC_SignUp                      1003
-#define IDC_FindInfo                    1004
 #define IDC_SID                         1004
+#define IDC_FindInfo                    1004
 #define IDC_STATIC_ID                   1005
 #define IDC_CheckID                     1006
 #define IDC_STATIC_ID2                  1007
@@ -39,16 +39,17 @@
 #define IDC_PHONE2                      1024
 #define IDC_PHONE3                      1025
 #define IDC_PWError                     1026
-#define IDC_PWError2                    1027
 #define IDC_IDError                     1027
+#define IDC_BRITHDAY                    1030
+#define IDC_BIRTHDAY                    1030
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        317
+#define _APS_NEXT_RESOURCE_VALUE        320
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1027
+#define _APS_NEXT_CONTROL_VALUE         1031
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

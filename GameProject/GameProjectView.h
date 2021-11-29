@@ -3,8 +3,9 @@
 //
 
 #pragma once
-#include "PlayScreen.h"
+#include  "CPlayFormView.h"
 #include "CSignupDlg.h"
+#include <AFXPRIV.H>
 
 class CGameProjectView : public CFormView
 {
@@ -26,7 +27,9 @@ public:
 public:
 
 	CSignUpDlg* m_SignupDlg;
-	
+	CView* m_PlayView;
+
+
 	CDatabase m_db; //데이터 베이스 연동
 	CRecordset* m_prs; 
 
@@ -60,6 +63,7 @@ protected:
 public:
 	afx_msg void OnBnClickedSignup();
 	afx_msg void OnBnClickedbtnLogin();
+
 };
 
 #ifndef _DEBUG  // GameProjectView.cpp의 디버그 버전

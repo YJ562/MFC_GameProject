@@ -27,10 +27,16 @@ public:
 	afx_msg void OnBnClickedRadio1();
 	afx_msg void OnBnClickedRadio2();
 
+//	생일을 받아올 컨트롤
+	CTime m_time;
+	CDateTimeCtrl m_datetime_date;
+
 	CDatabase m_db; //데이터 베이스 연동
 	CRecordset* m_prs;
 
 
 	void InsertData(CString Signup_ID, CString Signup_PW, CString Signup_NICKNAME, CString Signup_NAME, CString Signup_GENDER, CString BRITHDAY, CString Signup_PHONE);
 	int CheckDuplicatedID(CString Signup_ID);
+	
+	
 };
