@@ -29,7 +29,7 @@ void CSignUpDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Radio(pDX, IDC_RADIO1, m_SGender);
 	
-	BOOL bopen = m_db.OpenEx(_T("DSN=mydb; SERVER=127.0.0.1; PORT=3306; UID=root; PWD=0804; DATABASE=gameproject;"), CDatabase::noOdbcDialog);
+	BOOL bopen = m_db.OpenEx(_T("DSN=mydb;SERVER=127.0.0.1;PORT=3306;UID=root;PWD=0804; DATABASE=gameproject;"), CDatabase::noOdbcDialog);
 	if (bopen) m_prs = new CRecordset(&m_db);
 
 
@@ -103,44 +103,47 @@ void CSignUpDlg::OnBnClickedOk()
 	//CString test =  Signup_ID + "\n" + Signup_PW + "\n" + Signup_PW2 + "\n" + Signup_NICKNAME + "\n" + Signup_NAME +"\n"+ Signup_GENDER;
 	//MessageBox(test);
 
-	if(CheckDuplicatedID(Signup_ID)!=1){
+	if (Signup_ID.IsEmpty() != TRUE && Signup_PW.IsEmpty() != TRUE && Signup_PW2.IsEmpty() != TRUE && Signup_PHONE.IsEmpty() != TRUE && Signup_NICKNAME.IsEmpty() != TRUE && Signup_NAME.IsEmpty() != TRUE) {
 
-		if (Signup_PW.Compare(Signup_PW2) == 0) { //문자열 일치할 때, compare 함수가 0을 반환
-			
-			InsertData(Signup_ID, Signup_PW, Signup_NICKNAME, Signup_NAME, Signup_GENDER, Signup_BIRTHDAY, Signup_PHONE, 1);
-			
-			/*
-			CString query_str;
-			
-			m_db.BeginTrans();
-			try {
+		if (CheckDuplicatedID(Signup_ID) != 1) {
 
-				query_str.Format(L"INSERT INTO member(ID,PW,NICKNAME,NAME,GENDER,BIRTHDAY,PHONE,EXIST) VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%d\')",
-					Signup_ID, Signup_PW, Signup_NICKNAME, Signup_NAME, Signup_GENDER, Signup_BIRTHDAY, Signup_PHONE,1);
-				m_db.ExecuteSQL(query_str);
+			if (Signup_PW.Compare(Signup_PW2) == 0) { //문자열 일치할 때, compare 함수가 0을 반환
+
+				InsertData(Signup_ID, Signup_PW, Signup_NICKNAME, Signup_NAME, Signup_GENDER, Signup_BIRTHDAY, Signup_PHONE, 1);
+
+				/*
+				CString query_str;
+
+				m_db.BeginTrans();
+				try {
+
+					query_str.Format(L"INSERT INTO member(ID,PW,NICKNAME,NAME,GENDER,BIRTHDAY,PHONE,EXIST) VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%d\')",
+						Signup_ID, Signup_PW, Signup_NICKNAME, Signup_NAME, Signup_GENDER, Signup_BIRTHDAY, Signup_PHONE,1);
+					m_db.ExecuteSQL(query_str);
+				}
+				catch (CException* e) {
+					e->ReportError();
+				}
+
+				m_db.CommitTrans();*/
+
+				MessageBox(_T("회원 가입이 완료되었습니다."));
+				GetDlgItem(IDC_PWError)->ShowWindow(SW_HIDE);
+
+				OnOK(); //모달 종료
+
 			}
-			catch (CException* e) {
-				e->ReportError();
+			else {
+				MessageBox(_T("비밀번호 확인해주세요."));
+				GetDlgItem(IDC_PWError)->ShowWindow(SW_SHOW);
 			}
-			
-			m_db.CommitTrans();*/
-
-			MessageBox(_T("회원 가입이 완료되었습니다."));
-			GetDlgItem(IDC_PWError)->ShowWindow(SW_HIDE);
-
-			OnOK(); //모달 종료
-
 		}
 		else {
-			MessageBox(_T("비밀번호 확인해주세요."));
-			GetDlgItem(IDC_PWError)->ShowWindow(SW_SHOW);
+			MessageBox(_T("중복된 아이디 입니다."));
+			GetDlgItem(IDC_IDError)->ShowWindow(SW_SHOW);
 		}
 	}
-	else {
-		MessageBox(_T("중복된 아이디 입니다."));
-		GetDlgItem(IDC_IDError)->ShowWindow(SW_SHOW);
-	}
-
+	else MessageBox(_T("빈 곳을 입력해주세요."));
 	
 	CDialogEx::OnOK();
 }
