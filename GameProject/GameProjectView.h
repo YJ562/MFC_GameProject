@@ -5,6 +5,7 @@
 #pragma once
 #include  "CPlayFormView.h"
 #include "CSignupDlg.h"
+#include "CFindDlg.h"
 #include <AFXPRIV.H>
 
 class CGameProjectView : public CFormView
@@ -27,6 +28,7 @@ public:
 public:
 
 	CSignUpDlg* m_SignupDlg;
+	CFindDlg* m_FingDlg;
 	CView* m_PlayView;
 
 
@@ -64,6 +66,7 @@ public:
 	afx_msg void OnBnClickedSignup();
 	afx_msg void OnBnClickedbtnLogin();
 
+	afx_msg void OnBnClickedFindinfo();
 };
 
 #ifndef _DEBUG  // GameProjectView.cpp의 디버그 버전

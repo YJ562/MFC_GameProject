@@ -31,6 +31,7 @@ BEGIN_MESSAGE_MAP(CGameProjectView, CFormView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CFormView::OnFilePrintPreview)
 	ON_BN_CLICKED(IDC_SignUp, &CGameProjectView::OnBnClickedSignup)
 	ON_BN_CLICKED(IDC_btn_Login, &CGameProjectView::OnBnClickedbtnLogin)
+	ON_BN_CLICKED(IDC_FindInfo, &CGameProjectView::OnBnClickedFindinfo)
 END_MESSAGE_MAP()
 
 // CGameProjectView 생성/소멸
@@ -39,7 +40,7 @@ CGameProjectView::CGameProjectView() noexcept
 	: CFormView(IDD_GAMEPROJECT_FORM)
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
-	BOOL bopen = m_db.OpenEx(_T("DSN=GameProjectDB; SERVER=127.0.0.1; PORT=3306; UID=root; PWD=0804; DATABASE=gameproject;"), CDatabase::noOdbcDialog);
+	BOOL bopen = m_db.OpenEx(_T("DSN=mydb; SERVER=127.0.0.1; PORT=3306; UID=root; PWD=0804; DATABASE=gameproject;"), CDatabase::noOdbcDialog);
 	if (bopen) m_prs = new CRecordset(&m_db);
 
 }
@@ -138,7 +139,7 @@ void CGameProjectView::OnBnClickedSignup()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CSignUpDlg SignUp_Screen; 
 	int iRes = SignUp_Screen.DoModal(); // 회원 가입창 모달
-	
+	//SignUp_Screen.EndDialog(IDOK);
 }
 
 
@@ -210,3 +211,11 @@ int CGameProjectView::ComparePW(CString  Enter_ID, CString Enter_PW) {
 	else return 0;
 }
 
+
+
+void CGameProjectView::OnBnClickedFindinfo()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CFindDlg Find_Screen;
+	int iRes = Find_Screen.DoModal();
+}
