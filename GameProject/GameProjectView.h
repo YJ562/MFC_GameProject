@@ -3,10 +3,13 @@
 //
 
 #pragma once
-#include  "CPlayFormView.h"
 #include "CSignupDlg.h"
 #include "CFindDlg.h"
 #include <AFXPRIV.H>
+#include "MFC_gaDoc.h"
+#include "MFC_gaView.h"
+
+
 
 class CGameProjectView : public CFormView
 {
@@ -46,8 +49,23 @@ protected:
 	virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
 	virtual void OnPrint(CDC* pDC, CPrintInfo* pInfo);
 
-
+	int m_LoginCheck;
 	int ComparePW(CString Enter_ID, CString Enter_PW);
+
+
+	int level;
+	vector <CPoint> e;
+	vector <int> er;
+	vector <int> step_y;
+	vector <CPoint> k;
+	int start;
+	int x;
+	int y;
+	int step;
+	int m_winright;
+	int m_winbottom;
+	int count;
+	int gover;
 
 // 구현입니다.
 public:
@@ -65,8 +83,9 @@ protected:
 public:
 	afx_msg void OnBnClickedSignup();
 	afx_msg void OnBnClickedbtnLogin();
-
 	afx_msg void OnBnClickedFindinfo();
+	void Clear_LoginScreen();
+	virtual void OnDraw(CDC* /*pDC*/);
 };
 
 #ifndef _DEBUG  // GameProjectView.cpp의 디버그 버전
