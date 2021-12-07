@@ -42,10 +42,10 @@
     <ClInclude Include="CSignUpDlg.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="CFindDlg.h">
+    <ClInclude Include="CPlayFormView.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="MFC_game.h">
+    <ClInclude Include="CFindDlg.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -68,10 +68,10 @@
     <ClCompile Include="CSignUpDlg.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CFindDlg.cpp">
+    <ClCompile Include="CPlayFormView.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MFC_game.cpp">
+    <ClCompile Include="CFindDlg.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,12 +93,6 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="res\Toolbar.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="res\bitmap1.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="res\bitmap2.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

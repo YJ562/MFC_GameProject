@@ -161,8 +161,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 //	virtual BOOL OnInitDialog();
-//	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-//	afx_msg void OnSize(UINT nType, int cx, int cy);
 };
 
 CAboutDlg::CAboutDlg() noexcept : CDialogEx(IDD_ABOUTBOX)
@@ -175,8 +173,6 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
-//	ON_WM_KEYDOWN()
-//ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 // 대화 상자를 실행하기 위한 응용 프로그램 명령입니다.
@@ -201,20 +197,4 @@ void CGameProjectApp::OnAppAbout()
 //				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 //
 //
-//}
-
-
-//void CAboutDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
-//{
-//	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-//
-//	CDialogEx::OnKeyDown(nChar, nRepCnt, nFlags);
-//}
-
-
-//void CAboutDlg::OnSize(UINT nType, int cx, int cy)
-//{
-//	CDialogEx::OnSize(nType, cx, cy);
-//
-//	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
 //}
