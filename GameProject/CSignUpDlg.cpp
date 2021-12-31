@@ -27,11 +27,11 @@ CSignUpDlg::~CSignUpDlg()
 void CSignUpDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Radio(pDX, IDC_RADIO1, m_SGender);
-	
+
 	BOOL bopen = m_db.OpenEx(_T("DSN=mydb;SERVER=127.0.0.1;PORT=3306;UID=root;PWD=0804; DATABASE=gameproject;"), CDatabase::noOdbcDialog);
 	if (bopen) m_prs = new CRecordset(&m_db);
 
+	DDX_Radio(pDX, IDC_RADIO1, m_SGender);
 	GetDlgItem(IDC_PWError)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_IDError)->ShowWindow(SW_HIDE);
 
@@ -108,28 +108,10 @@ void CSignUpDlg::OnBnClickedOk()
 			if (Signup_PW.Compare(Signup_PW2) == 0) { //문자열 일치할 때, compare 함수가 0을 반환
 
 				InsertData(Signup_ID, Signup_PW, Signup_NICKNAME, Signup_NAME, Signup_GENDER, Signup_BIRTHDAY, Signup_PHONE, 1);
-
-				/*
-				CString query_str;
-
-				m_db.BeginTrans();
-				try {
-
-					query_str.Format(L"INSERT INTO member(ID,PW,NICKNAME,NAME,GENDER,BIRTHDAY,PHONE,EXIST) VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%d\')",
-						Signup_ID, Signup_PW, Signup_NICKNAME, Signup_NAME, Signup_GENDER, Signup_BIRTHDAY, Signup_PHONE,1);
-					m_db.ExecuteSQL(query_str);
-				}
-				catch (CException* e) {
-					e->ReportError();
-				}
-
-				m_db.CommitTrans();*/
-
 				MessageBox(_T("회원 가입이 완료되었습니다."));
 				GetDlgItem(IDC_PWError)->ShowWindow(SW_HIDE);
-
-				OnOK(); //모달 종료
-
+				PostMessage(WM_CLOSE); //모달 종료
+				
 			}
 			else {
 				MessageBox(_T("비밀번호 확인해주세요."));
@@ -142,8 +124,7 @@ void CSignUpDlg::OnBnClickedOk()
 		}
 	}
 	else MessageBox(_T("빈 곳을 입력해주세요."));
-	
-	CDialogEx::OnOK();
+
 }
 
 
@@ -172,15 +153,15 @@ void  CSignUpDlg::InsertData(CString Signup_ID, CString Signup_PW, CString Signu
 	CString query_str;
 
 			m_db.BeginTrans();
-			//try {
+			try {
 
-				query_str.Format(L"INSERT INTO member(ID,PW,NICKNAME,NAME,GENDER,BIRTHDAY,PHONE,EXIST) VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%d\')",
+				query_str.Format(_T("INSERT INTO member(ID,PW,NICKNAME,NAME,GENDER,BIRTHDAY,PHONE,EXIST) VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%d\')"),
 					Signup_ID, Signup_PW, Signup_NICKNAME, Signup_NAME, Signup_GENDER, Signup_BRITHDAY, Signup_PHONE,1);
 				m_db.ExecuteSQL(query_str);
-		//	}
-		//	catch (CException* e) {
-		//		e->ReportError();
-		//	}
+			}
+			catch (CException* e) {
+				e->ReportError();
+			}
 
 			m_db.CommitTrans();
 

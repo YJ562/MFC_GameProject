@@ -185,6 +185,7 @@
   <ItemGroup>
     <ClInclude Include="CFindDlg.h" />
     <ClInclude Include="CPlayFormView.h" />
+    <ClInclude Include="CRankDlg.h" />
     <ClInclude Include="CSignUpDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameProject.h" />
@@ -198,6 +199,7 @@
   <ItemGroup>
     <ClCompile Include="CFindDlg.cpp" />
     <ClCompile Include="CPlayFormView.cpp" />
+    <ClCompile Include="CRankDlg.cpp" />
     <ClCompile Include="CSignUpDlg.cpp" />
     <ClCompile Include="GameProject.cpp" />
     <ClCompile Include="GameProjectDoc.cpp" />
@@ -217,6 +219,8 @@
     <None Include="res\GameProject.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bitmap2.bmp" />
     <Image Include="res\GameProject.ico" />
     <Image Include="res\GameProjectDoc.ico" />
     <Image Include="res\Toolbar.bmp" />

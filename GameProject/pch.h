@@ -11,3 +11,7 @@
 #include "framework.h"
 
 #endif //PCH_H
+
+extern CString m_loginID_now;
+
+

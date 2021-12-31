@@ -238,7 +238,6 @@ void CFindDlg::OnBnClickedButton3()
 		OnOK();
 		OnOK();
 } 
-
 		else{
 		GetDlgItem(IDC_UPDATEPWERROR)->ShowWindow(SW_SHOW);
 	}

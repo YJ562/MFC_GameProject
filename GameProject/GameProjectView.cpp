@@ -40,9 +40,10 @@ CGameProjectView::CGameProjectView() noexcept
 	: CFormView(IDD_GAMEPROJECT_FORM)
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
+	//m_loginID_now.Format(L"");
+
 	BOOL bopen = m_db.OpenEx(_T("DSN=mydb; SERVER=127.0.0.1; PORT=3306; UID=anni20; PWD=0804; DATABASE=gameproject ;"), CDatabase::noOdbcDialog);
 	if (bopen) m_prs = new CRecordset(&m_db);
-
 }
 
 CGameProjectView::~CGameProjectView()
@@ -159,19 +160,16 @@ void CGameProjectView::OnBnClickedbtnLogin()
 	CString test = m_Login_ID +" " + m_Login_PW;
 	MessageBox(test);
 	*/
+                                   
 
+	/*-----------------아이디/비밀 번호 비교 및 공백 처리 ---------------------------------------------------*/
 	if (m_Login_ID.Compare(_T("")) != 0 || m_Login_PW.Compare(_T("")) != 0) {
 		int success = ComparePW(m_Login_ID, m_Login_PW);
 		if (success == 1) {
 			MessageBox(_T("로그인을 성공하였습니다."));
 			m_PlayView->ShowWindow(SW_SHOW);
-
-			GetDlgItem(IDC_SignUp)->ShowWindow(SW_HIDE);
-			GetDlgItem(IDC_btn_Login)->ShowWindow(SW_HIDE);
-			GetDlgItem(IDC_FindInfo)->ShowWindow(SW_HIDE);
-			GetDlgItem(IDC_ID)->ShowWindow(SW_HIDE);
-			GetDlgItem(IDC_Password)->ShowWindow(SW_HIDE);
-			
+			m_loginID_now.Format(L"%s", m_Login_ID); //m_loginID_now 전역변수 // 현재 로그인 아이디
+			ClearButton();
 		}
 		else MessageBox(_T("잘못된 아이디/비밀번호 입니다.\n다시 로그인을 시도해주세요."));
 	}
@@ -217,4 +215,12 @@ void CGameProjectView::OnBnClickedFindinfo()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CFindDlg Find_Screen;
 	int iRes = Find_Screen.DoModal();
+}
+
+void CGameProjectView::ClearButton() {
+	GetDlgItem(IDC_SignUp)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_btn_Login)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_FindInfo)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_ID)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_Password)->ShowWindow(SW_HIDE);
 }

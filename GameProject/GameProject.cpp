@@ -161,6 +161,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 //	virtual BOOL OnInitDialog();
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 };
 
 CAboutDlg::CAboutDlg() noexcept : CDialogEx(IDD_ABOUTBOX)
@@ -184,17 +185,9 @@ void CGameProjectApp::OnAppAbout()
 
 // CGameProjectApp 메시지 처리기
 
+BOOL CAboutDlg::PreCreateWindow(CREATESTRUCT& cs)
+{
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 
-
-
-//BOOL CAboutDlg::OnInitDialog()
-//{
-//	CDialogEx::OnInitDialog();
-//
-//	// TODO:  여기에 추가 초기화 작업을 추가합니다.
-//
-//	return TRUE;  // return TRUE unless you set the focus to a control
-//				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
-//
-//
-//}
+	return CDialogEx::PreCreateWindow(cs);
+}
