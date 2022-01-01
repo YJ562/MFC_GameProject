@@ -21,4 +21,19 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
+public:
+
+	CDatabase m_db; //데이터 베이스 연동
+	CRecordset* m_prs;
+
+	int m_SelectRecord;
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedRadio3();
+	void selectRecord(CString query);
+	CListCtrl m_list1;
+	CListCtrl m_list2;
+	CComboBox m_selectLevel;
+	void selectQuery(int level);
+	
+	int m_selectList=0;
 };

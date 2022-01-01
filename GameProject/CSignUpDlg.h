@@ -36,7 +36,7 @@ public:
 
 
 	void InsertData(CString Signup_ID, CString Signup_PW, CString Signup_NICKNAME, CString Signup_NAME, CString Signup_GENDER, CString BRITHDAY, CString Signup_PHONE, int exist);
-	int CheckDuplicatedID(CString Signup_ID);
+	int CheckDuplicatedID(CString Enter_ID);
 	
 	
 	virtual void OnOK();

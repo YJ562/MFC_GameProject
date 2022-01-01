@@ -39,6 +39,7 @@
 #define IDC_EDIT1                       1020
 #define IDC_STATIC_ID7                  1021
 #define IDC_EDIT2                       1021
+#define IDC_RADIO3                      1021
 #define IDC_STATIC_ID8                  1022
 #define IDC_EDIT3                       1022
 #define IDC_PHONE1                      1023
@@ -51,6 +52,8 @@
 #define IDC_EDIT7                       1026
 #define IDC_IDError                     1027
 #define IDC_EDIT8                       1027
+#define IDC_IDError2                    1028
+#define IDC_NicknameError               1028
 #define IDC_BIRTHDAY                    1030
 #define IDC_FORM                        1032
 #define IDC_FORM2                       1033
@@ -76,6 +79,11 @@
 #define IDC_NEWPW                       1053
 #define IDC_NEWPW2                      1054
 #define IDC_UPDATEPWERROR               1055
+#define IDC_Record1                     1056
+#define IDC_stage                       1057
+#define IDC_DATEstart                   1058
+#define IDC_DATEend                     1059
+#define IDC_Record2                     1060
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_32773                        32773
@@ -88,7 +96,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        326
 #define _APS_NEXT_COMMAND_VALUE         32776
-#define _APS_NEXT_CONTROL_VALUE         1056
+#define _APS_NEXT_CONTROL_VALUE         1061
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

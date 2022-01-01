@@ -17,6 +17,7 @@ BEGIN_MESSAGE_MAP(CPlayFormView, CFormView)
 	ON_COMMAND(ID_32772, &CPlayFormView::OnmyNormal)
 	ON_COMMAND(ID_32773, &CPlayFormView::OnmyHard)
 	ON_COMMAND(ID_32774, &CPlayFormView::OnmyHell)
+	ON_COMMAND(ID_32775, &CPlayFormView::OnShowRanking)
 END_MESSAGE_MAP()
 
 // CPlayFormView
@@ -38,6 +39,7 @@ CPlayFormView::CPlayFormView()
 
 	BOOL bopen = m_db.OpenEx(_T("DSN=mydb;SERVER=127.0.0.1;PORT=3306;UID=root;PWD=0804; DATABASE=gameproject;"), CDatabase::noOdbcDialog);
 	if (bopen) m_prs = new CRecordset(&m_db);
+
 }
 
 CPlayFormView::~CPlayFormView()
@@ -73,19 +75,18 @@ void CPlayFormView::OnDraw(CDC* pDC)
 	CClientDC dc(this);
 	CRect rect;
 	GetClientRect(&rect);
-	/*------------------아이디 테스트-----------------------------------------------------------------------*/
+	/*------------------아이디 및 회원정보 테스트-----------------------------------------------------------------------*/
 	//CString str_login;
 	//str_login.Format(_T("% s 님 환영합니다."), m_loginID_now); // m_loginID_now 전역변수 // 현재 로그인 아이디
 	//dc.SetBkMode(TRANSPARENT);
 	//dc.TextOutW(10, 30, str_login);
 
-	getNickname();
-	//CString nickname;
-	//nickname.Format(_T("닉네임 = %s"), m_name); //str에 저장
-	//dc.SetBkMode(TRANSPARENT);
-	//dc.TextOutW(10, 30, nickname);
+	getStates(); //로그인 된 아이디의 정보 구조체에 저장
 
-
+	//CString str_states = player.m_pID + player.m_pPW + player.m_pNICKNAME;
+	//MessageBox(str_states);
+	
+	CString stage;
 	/*--------게임 over 판별, 난이도 -------------------------------------------------------------------*/
 	if (gover == 0) {
 		CDC memdc;
@@ -113,6 +114,8 @@ void CPlayFormView::OnDraw(CDC* pDC)
 		else if (level == 3)
 			str2.Format(L"HELL");
 		
+		
+		stage=str2;
 		str.Format(L"\n 누르면 게임시작\n난이도는 % s입니다.", str2);
 
 		if (start == 0) {
@@ -267,7 +270,7 @@ void CPlayFormView::OnDraw(CDC* pDC)
 		w = rect.right;
 		h = rect.bottom;
 		pDC->StretchBlt(w / 4, 100, 10 * w, 10 * h, &mdc, 0, 0, w, h, SRCCOPY);
-
+		
 		mdc.SelectObject(oldbit);
 		s_bit.DeleteObject();
 		mdc.DeleteDC();
@@ -280,11 +283,13 @@ void CPlayFormView::OnDraw(CDC* pDC)
 		dc.SetBkMode(TRANSPARENT);
 		//dc.TextOut(w - 700, h - 500, str);
 		dc.TextOut(w/2, h/8, str);
+
+		Send_PlayRecord(player.m_pNICKNAME, count, level);
+
 		gover = 0;
 		count = 0;
 		Sleep(2500);
 		Invalidate();
-
 	}
 }
 
@@ -364,6 +369,7 @@ void CPlayFormView::OnSize(UINT nType, int cx, int cy)
 	m_winright = cx / 2;
 	m_winbottom = cy - 50;
 
+
 }
 
 void CPlayFormView::OnmyEasy()
@@ -425,25 +431,77 @@ void CPlayFormView::OnmyHell()
 	Invalidate();
 }
 
-void CPlayFormView::getNickname() {
+void CPlayFormView::getStates() {
 	CString query_str;
-	query_str.Format(L"select NICKNAME from member where ID = \'%s\';", m_loginID_now);
-	
+	CString str;
+
+	query_str.Format(L"select * from member where ID = \'%s\';", m_loginID_now);
+
 	BOOL bopen = m_prs->Open(CRecordset::snapshot, query_str);
 	{
+		
 		int row = 1;
 		BOOL beof = m_prs->IsEOF();
 		DWORD dwsize = m_prs->GetRowsetSize();
 		if (!beof) {
 			for (m_prs->MoveFirst(); !m_prs->IsEOF(); m_prs->MoveNext()) {
-
-				for (int col = 0; col < 1; col++) {
+				//int fieldc = m_prs->GetODBCFieldCount();
+				//for (int i = 0; i < fieldc; i++) {
+				//	CString info;
 					m_prs->SetAbsolutePosition(row);
-					m_prs->GetFieldValue(col, m_name);
-				}
-			}
-		}
+				//	m_prs->GetFieldValue(i, info);
+				//	str = str + " " + info;
+					m_prs->GetFieldValue(short(0), player.m_pID);
+					m_prs->GetFieldValue(short(1), player.m_pPW);
+					m_prs->GetFieldValue(short(2), player.m_pNICKNAME);
+					m_prs->GetFieldValue(short(3), player.m_pNAME);
+					m_prs->GetFieldValue(short(4), player.m_pGENDER);
+					m_prs->GetFieldValue(short(5), player.m_pBIRTHDAY);
+					m_prs->GetFieldValue(short(6), player.m_pPHONE);
+
+				//} // for i
+				//str += "\n";
+			//	row++;
+
+
+			} // for m_prs
+		} // if 
+
 		//AfxMessageBox(m_CompareID); 
 		m_prs->Close();
 	}
+
+}
+
+
+void CPlayFormView::Send_PlayRecord(CString nickname, int score, int leve){
+
+	CString query_str;
+
+	m_db.BeginTrans();
+	try {
+		query_str.Format(L"INSERT INTO play_record(nickname, score, level, date) VALUES(\'%s\', \'%d\', \'%d\', NOW())",
+		nickname, score, level);
+		m_db.ExecuteSQL(query_str);
+	}
+	catch (CException* e) {
+		e->ReportError();
+	}
+
+	m_db.CommitTrans();
+
+}
+
+void CPlayFormView::OnShowRanking()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	
+	if (rankingDlg == NULL)
+
+	{
+		rankingDlg = new CRankDlg(this);
+		rankingDlg->Create(IDD_RANK, this);
+		rankingDlg->ShowWindow(SW_SHOW);
+	}
+
 }

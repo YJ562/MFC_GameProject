@@ -34,6 +34,7 @@ void CSignUpDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Radio(pDX, IDC_RADIO1, m_SGender);
 	GetDlgItem(IDC_PWError)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_IDError)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_NicknameError)->ShowWindow(SW_HIDE);
 
 	DDX_Control(pDX, IDC_BIRTHDAY, m_datetime_date);
 }
@@ -108,10 +109,13 @@ void CSignUpDlg::OnBnClickedOk()
 			if (Signup_PW.Compare(Signup_PW2) == 0) { //문자열 일치할 때, compare 함수가 0을 반환
 
 				InsertData(Signup_ID, Signup_PW, Signup_NICKNAME, Signup_NAME, Signup_GENDER, Signup_BIRTHDAY, Signup_PHONE, 1);
+
+
 				MessageBox(_T("회원 가입이 완료되었습니다."));
 				GetDlgItem(IDC_PWError)->ShowWindow(SW_HIDE);
-				PostMessage(WM_CLOSE); //모달 종료
-				
+
+				OnOK(); //모달 종료
+
 			}
 			else {
 				MessageBox(_T("비밀번호 확인해주세요."));
@@ -155,12 +159,12 @@ void  CSignUpDlg::InsertData(CString Signup_ID, CString Signup_PW, CString Signu
 			m_db.BeginTrans();
 			try {
 
-				query_str.Format(_T("INSERT INTO member(ID,PW,NICKNAME,NAME,GENDER,BIRTHDAY,PHONE,EXIST) VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%d\')"),
+				query_str.Format(L"INSERT INTO member(ID,PW,NICKNAME,NAME,GENDER,BIRTHDAY,PHONE,EXIST) VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%d\')",
 					Signup_ID, Signup_PW, Signup_NICKNAME, Signup_NAME, Signup_GENDER, Signup_BRITHDAY, Signup_PHONE,1);
 				m_db.ExecuteSQL(query_str);
 			}
 			catch (CException* e) {
-				e->ReportError();
+				e->ReportError(); 
 			}
 
 			m_db.CommitTrans();
@@ -196,7 +200,6 @@ int  CSignUpDlg::CheckDuplicatedID(CString Enter_ID) {
 	if (m_Exist.Compare(L"1") == 0) return 1;
 	else return 0;
 }
-
 void CSignUpDlg::OnOK()
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.

@@ -13,5 +13,13 @@
 #endif //PCH_H
 
 extern CString m_loginID_now;
-
-
+extern struct member {
+	CString m_pID;
+	CString m_pPW;
+	CString m_pNICKNAME;
+	CString m_pNAME;
+	CString m_pGENDER;
+	CString m_pBIRTHDAY;
+	CString m_pPHONE;
+};
+extern member player;

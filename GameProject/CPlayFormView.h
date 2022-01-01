@@ -3,6 +3,7 @@
 #include "GameProjectDoc.h"
 #include "GameProjectView.h"
 #include "afxdialogex.h"
+#include "CRankDlg.h"
 #include <afxdb.h>
 #include <iostream>
 #include <vector>
@@ -59,7 +60,7 @@ public:
 
 	CDatabase m_db; //데이터 베이스 연동
 	CRecordset* m_prs;
-	CString m_name;
+	CRankDlg *rankingDlg;
 
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	virtual void OnDraw(CDC* /*pDC*/);
@@ -68,12 +69,14 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	void KeyDown(MSG pMsg);
-	void getNickname();
+	void getStates();
 	afx_msg void OnmyEasy();
 	afx_msg void OnmyNormal();
 	afx_msg void OnmyHard();
 	afx_msg void OnmyHell();
 
-};
+	void Send_PlayRecord(CString nickname, int score, int level);
 
+	afx_msg void OnShowRanking();
+};
 
