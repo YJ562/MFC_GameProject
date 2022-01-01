@@ -53,7 +53,6 @@ void CRankDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CRankDlg, CDialogEx)
-
 	ON_BN_CLICKED(IDC_BUTTON1, &CRankDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_RADIO3, &CRankDlg::OnBnClickedRadio3)
 END_MESSAGE_MAP()
@@ -104,11 +103,11 @@ void CRankDlg::selectQuery(int level) {
 	UpdateData(true);
 	switch (m_SelectRecord) {
 	case 0:
-		str_query.Format(L"select * from(select *, rank() over(order by score desc) As ranking from play_record )play_record where nickname =\'%s\' and level = \'%d\' ;",player.m_pNICKNAME, level);
+		str_query.Format(L"select * from(select *, rank() over(order by score desc) As ranking from play_record where level = \'%d\')play_record where nickname =\'%s\' ;",level,player.m_pNICKNAME);
 		selectRecord(str_query);
 		break;
 	case 1:
-		str_query.Format(L"select * from(select * , rank() over(order by score desc) As ranking from play_record group by nickname)play_record where level = \'%d\' ; ", level);
+		str_query.Format(L"select * from(select * , rank() over(order by score desc) As ranking from play_record where level = \'%d\')play_record group by nickname; ", level);
 		selectRecord(str_query);
 		break;
 	}

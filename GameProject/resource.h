@@ -52,7 +52,6 @@
 #define IDC_EDIT7                       1026
 #define IDC_IDError                     1027
 #define IDC_EDIT8                       1027
-#define IDC_IDError2                    1028
 #define IDC_NicknameError               1028
 #define IDC_BIRTHDAY                    1030
 #define IDC_FORM                        1032
@@ -62,6 +61,7 @@
 #define IDC_STATIC4                     1036
 #define IDC_BUTTON1                     1037
 #define IDC_STATIC5                     1038
+#define IDC_BUTTON4                     1038
 #define IDC_STATIC6                     1039
 #define IDC_STATIC7                     1040
 #define IDC_STATIC8                     1041
