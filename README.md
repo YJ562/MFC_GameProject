@@ -7,20 +7,20 @@ mfc로 만든 똥 피하기 게임
 schemas : gameproject
 
 1. 회원관리 관련 member 테이블
--ID : VARCHAR()
--PW : VARCHAR()
--NICKNAME : VARCHAR()
--NAME : VARCHAR()
--GENDER : VARCHAR(3)
--BIRTHDAY : VARCHAR(10)
--PHONE : VARCHAR(13)
--EXIST : INT
+ID : VARCHAR()
+/PW : VARCHAR()
+/NICKNAME : VARCHAR()
+/NAME : VARCHAR()
+/GENDER : VARCHAR(3)
+/BIRTHDAY : VARCHAR(10)
+/PHONE : VARCHAR(13)
+/EXIST : INT
 
 2. 랭킹 구현 관련 play_record 테이블
--nickname : VARCHAR()
--score : INT
--date : DATETIME
--level : INT
+nickname : VARCHAR()
+/score : INT
+/date : DATETIME
+/level : INT
 
 <구현>
 - 아이디 중복 시 아이디 중복 메시지가 뜨도록
