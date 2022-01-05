@@ -7,7 +7,7 @@ mfc로 만든 똥 피하기 게임
 schemas : gameproject
 
 1. 회원관리 관련 member 테이블
-ID : VARCHAR()
+ - ID : VARCHAR()
 /PW : VARCHAR()
 /NICKNAME : VARCHAR()
 /NAME : VARCHAR()
@@ -17,7 +17,7 @@ ID : VARCHAR()
 /EXIST : INT
 
 2. 랭킹 구현 관련 play_record 테이블
-nickname : VARCHAR()
+ - nickname : VARCHAR()
 /score : INT
 /date : DATETIME
 /level : INT
